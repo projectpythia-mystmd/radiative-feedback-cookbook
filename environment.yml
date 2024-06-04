@@ -1,7 +1,26 @@
-name: cookbook-dev
+name: feedback-cookbook-dev
 channels:
   - conda-forge
 dependencies:
+  - python<3.12  # hopefully temporary, to accommodate issues with Pythia binder
   - jupyter-book
   - jupyterlab
   - sphinx-pythia-theme
+  - numpy
+  - matplotlib
+  - pandas
+  - xarray
+  - xesmf
+  - cartopy
+  - dask
+  - dask-gateway
+  - tqdm
+  - intake
+  - intake-esm
+  - fsspec
+  - cftime
+  - nc-time-axis
+  - gcsfs
+  - pip
+  - pip:
+    - climkern
