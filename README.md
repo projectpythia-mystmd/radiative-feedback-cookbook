@@ -14,7 +14,7 @@ This Project Pythia Cookbook explores the fundamental science and practice of ra
 
 ## Authors
 
-[First Author](@first-author), [Second Author](@second-author), etc. _Acknowledge primary content authors here_
+[Ana Castaneda Montoya](@anacmontoya), [Ty Janoski](@tyfolino), [Robert Ford](@r-ford), [Brian Rose](@brian-rose), and [Rachel Tam](@rytam2)
 
 ### Contributors
 
