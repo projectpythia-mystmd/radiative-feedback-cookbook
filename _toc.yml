@@ -4,6 +4,16 @@ parts:
   - caption: Preamble
     chapters:
       - file: notebooks/how-to-cite
-  - caption: Introduction
+  - caption: Foundations
     chapters:
-      - file: notebooks/notebook-template
+      - file: notebooks/foundations/energy-balance-model
+      - file: notebooks/foundations/theory-rad-feedback
+  - caption: Feedback Analysis
+    chapters:
+      - file: notebooks/feeback-analysis/manual-calc
+      - file: notebooks/feeback-analysis/aprp
+  - caption: Simplifying Calculations
+    chapters:
+      - file: notebooks/simplified-calc/climkern-calc
+      - file: notebooks/simplified-calc/kernel-comparison
+      - file: notebooks/simplified-calc/state-dependence

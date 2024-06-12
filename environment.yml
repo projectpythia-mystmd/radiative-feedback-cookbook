@@ -21,6 +21,8 @@ dependencies:
   - cftime
   - nc-time-axis
   - gcsfs
+  - s3fs
+  - h5netcdf
   - pip
   - pip:
     - climkern
