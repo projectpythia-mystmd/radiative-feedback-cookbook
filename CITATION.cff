@@ -27,6 +27,7 @@ authors:
     orcid: https://orcid.org/0009-0004-8190-0429
   - family-names: Castaneda Montoya
     given-names: Ana
+    orcid: https://orcid.org/0009-0001-3060-2665
   - name: "Radiative Feedback Cookbook contributors" # use the 'name' field to acknowledge organizations
     website: "https://github.com/ProjectPythia/radiative-feedback-cookbook/graphs/contributors"
 title: "Radiative Feedback Cookbook"
