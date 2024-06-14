@@ -17,3 +17,6 @@ parts:
       - file: notebooks/simplified-calc/climkern-calc
       - file: notebooks/simplified-calc/kernel-comparison
       - file: notebooks/simplified-calc/state-dependence
+  - caption: Appendix
+    chapters:
+      - file: references
