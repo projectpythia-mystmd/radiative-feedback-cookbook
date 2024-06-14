@@ -7,6 +7,26 @@ authors:
     orcid: https://orcid.org/0000-0002-9961-3821 # optional
     website: https://github.com/brian-rose # optional
     affiliation: University at Albany (State University of New York) # optional
+  - family-names: Tam
+    given-names: Rachel Yuen Sum
+    orcid: https://orcid.org/0000-0002-3415-3879
+    affiliation: University of Illinois Urbana-Champaign
+  - family-names: Janoski
+    given-names: Tyler P.
+    orcid: https://orcid.org/0000-0003-4344-355X
+    affiliation: 
+      - City College of New York
+      - NOAA National Severe Storms Laboratory
+  - family-names: Ford
+    given-names: Robert R.
+    orcid: https://orcid.org/0000-0001-5483-4965
+    website: https://github.com/r-ford
+    affiliation: University at Albany (State University of New York)
+  - family-names: Zafar
+    given-names: Hannah
+    orcid: https://orcid.org/0009-0004-8190-0429
+  - family-names: Castaneda Montoya
+    given-names: Ana
   - name: "Radiative Feedback Cookbook contributors" # use the 'name' field to acknowledge organizations
     website: "https://github.com/ProjectPythia/radiative-feedback-cookbook/graphs/contributors"
 title: "Radiative Feedback Cookbook"
