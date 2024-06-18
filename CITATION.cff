@@ -31,4 +31,4 @@ authors:
   - name: "Radiative Feedback Cookbook contributors" # use the 'name' field to acknowledge organizations
     website: "https://github.com/ProjectPythia/radiative-feedback-cookbook/graphs/contributors"
 title: "Radiative Feedback Cookbook"
-abstract: "A sample cookbook description."
+abstract: "A cookbook exploring the science and practice of radiative feedback analysis applied to climate model output, with particular focus on the method of radiative kernels."
