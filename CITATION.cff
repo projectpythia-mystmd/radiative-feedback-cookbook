@@ -3,29 +3,29 @@ message: "If you use this cookbook, please cite it as below."
 authors:
   # add additional entries for each author -- see https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md
   - family-names: Rose
-    given-names: Brian E. J.
+    given-names: "Brian E. J."
     orcid: https://orcid.org/0000-0002-9961-3821 # optional
     website: https://github.com/brian-rose # optional
-    affiliation: University at Albany (State University of New York) # optional
+    affiliation: "University at Albany (State University of New York)" # optional
   - family-names: Tam
-    given-names: Rachel Yuen Sum
+    given-names: "Rachel Yuen Sum"
     orcid: https://orcid.org/0000-0002-3415-3879
-    affiliation: University of Illinois Urbana-Champaign
+    affiliation: "University of Illinois Urbana-Champaign"
   - family-names: Janoski
-    given-names: Tyler P.
+    given-names: "Tyler P."
     orcid: https://orcid.org/0000-0003-4344-355X
     affiliation: 
-      - City College of New York
-      - NOAA National Severe Storms Laboratory
+      - "City College of New York"
+      - "NOAA National Severe Storms Laboratory"
   - family-names: Ford
-    given-names: Robert R.
+    given-names: "Robert R."
     orcid: https://orcid.org/0000-0001-5483-4965
     website: https://github.com/r-ford
-    affiliation: University at Albany (State University of New York)
+    affiliation: "University at Albany (State University of New York)"
   - family-names: Zafar
     given-names: Hannah
     orcid: https://orcid.org/0009-0004-8190-0429
-  - family-names: Castaneda Montoya
+  - family-names: "Castaneda Montoya"
     given-names: Ana
     orcid: https://orcid.org/0009-0001-3060-2665
   - name: "Radiative Feedback Cookbook contributors" # use the 'name' field to acknowledge organizations
