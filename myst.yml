@@ -1,0 +1,41 @@
+version: 1
+extends:
+  - https://raw.githubusercontent.com/projectpythia-mystmd/pythia-config/main/pythia.yml
+project:
+  title: Radiative Feedback Cookbook
+  authors:
+    - name: Project Pythia Community
+      url: https://projectpythia.org/
+  github: https://github.com/projectpythia-mystmd/radiative-feedback-cookbook
+  copyright: '2024'
+  bibliography:
+    - bibliography.bib
+  toc:
+    - file: README.md
+    - title: Preamble
+      children:
+        - file: notebooks/how-to-cite.md
+    - title: Foundations
+      children:
+        - file: notebooks/foundations/energy-balance-model.ipynb
+        - file: notebooks/foundations/theory-rad-feedback.ipynb
+    - title: Feedback Analysis
+      children:
+        - file: notebooks/feedback-analysis/manual-calc.ipynb
+        - file: notebooks/feedback-analysis/aprp.ipynb
+    - title: Simplifying Calculations
+      children:
+        - file: notebooks/simplified-calc/climkern-calc.ipynb
+        - file: notebooks/simplified-calc/kernel-comparison.ipynb
+        - file: notebooks/simplified-calc/state-dependence.ipynb
+    - title: Appendix
+      children:
+        - file: references.md
+  jupyter:
+      binder:
+        repo: projectpythia-mystmd/radiative-feedback-cookbook
+site:
+  options:
+    logo: notebooks/images/logos/pythia_logo-white-rtext.svg
+    folders: true
+  template: book-theme
