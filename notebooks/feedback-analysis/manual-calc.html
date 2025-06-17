@@ -1,0 +1,1529 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Feedback analysis using radiative kernels &#8212; My Jupyter Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d0efeab3" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/feedback-analysis/manual-calc';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="APRP" href="aprp.html" />
+    <link rel="prev" title="Mathematical Theory of Radiative Feedbacks" href="../foundations/theory-rad-feedback.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">My Jupyter Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../README.html">
+                    Radiative Feedback Cookbook
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Preamble</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../how-to-cite.html">How to Cite This Cookbook</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Foundations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../foundations/energy-balance-model.html">Energy Balance Model and Feedbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../foundations/theory-rad-feedback.html">Mathematical Theory of Radiative Feedbacks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Feedback Analysis</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Feedback analysis using radiative kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aprp.html">APRP</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Simplifying Calculations</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../simplified-calc/climkern-calc.html">Feedbacks with ClimKern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simplified-calc/kernel-comparison.html">Comparing Different Kernels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../simplified-calc/state-dependence.html">State Dependence</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/notebooks/feedback-analysis/manual-calc.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Feedback analysis using radiative kernels</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-in-required-data">Loading in required data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#climate-model-output">Climate model output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#radiative-forcing-data">Radiative forcing data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#radiative-kernels">Radiative kernels</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-data-for-analysis">Preparing data for analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-two-climate-states">Calculating the two climate states</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regridding">Regridding</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-feedbacks">Calculating feedbacks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#surface-albedo">Surface albedo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature">Temperature</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#planck">Planck</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lapse-rate">Lapse rate</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#water-vapor">Water vapor</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#shortwave-water-vapor">Shortwave water vapor</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#longwave-water-vapor">Longwave water vapor</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud">Cloud</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-radiative-effect-cre">Cloud radiative effect (CRE)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-feedback-adjustments">Cloud feedback adjustments</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#net">Net</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-next">What’s next?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-and-references">Resources and references</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p><img src="../images/ProjectPythia_Logo_Final-01-Blue.svg" width=250 alt="Project Pythia Logo"></img></p>
+<div class="admonition alert alert-info">
+    <p class="admonition-title" style="font-weight:bold">Note</p>
+    This content is under construction!
+</div><section class="tex2jax_ignore mathjax_ignore" id="feedback-analysis-using-radiative-kernels">
+<h1>Feedback analysis using radiative kernels<a class="headerlink" href="#feedback-analysis-using-radiative-kernels" title="Link to this heading">#</a></h1>
+<hr class="docutils" />
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>This notebook details all of the steps required to perform a radiative kernel analysis.</p>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Concepts</p></th>
+<th class="head"><p>Importance</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://projectpythia.org/cmip6-cookbook/notebooks/foundations/intake-esm.html">Loading CMIP6 data with Intake-ESM</a></p></td>
+<td><p>Helpful</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://foundations.projectpythia.org/core/xarray/xarray-intro.html">Intro to Xarray</a></p></td>
+<td><p>Necessary</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p><strong>Time to learn</strong>: 60 minutes</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="imports">
+<h2>Imports<a class="headerlink" href="#imports" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xesmf</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xe</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">intake</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">s3fs</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">fsspec</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="loading-in-required-data">
+<h2>Loading in required data<a class="headerlink" href="#loading-in-required-data" title="Link to this heading">#</a></h2>
+<section id="climate-model-output">
+<h3>Climate model output<a class="headerlink" href="#climate-model-output" title="Link to this heading">#</a></h3>
+<p>In this example, we will perform the analysis on a single model from the CMIP6 ensemble, CESM2. The simplest way to calculate feedbacks is to take differences between two climate states, as opposed to regressions. Here we use runs with:</p>
+<ul class="simple">
+<li><p>preindustrial conditions (<code class="docutils literal notranslate"><span class="pre">piControl</span></code>) as the control climate</p></li>
+<li><p>instantaneously quadrupled CO<span class="math notranslate nohighlight">\(_2\)</span> (<code class="docutils literal notranslate"><span class="pre">abrupt-4xCO2</span></code>) as the perturbed climate</p></li>
+</ul>
+<p>We will use CMIP6 data hosted on Pangeo’s Google Cloud Storage:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat_url</span> <span class="o">=</span> <span class="s1">&#39;https://storage.googleapis.com/cmip6/pangeo-cmip6.json&#39;</span>
+<span class="n">col</span> <span class="o">=</span> <span class="n">intake</span><span class="o">.</span><span class="n">open_esm_datastore</span><span class="p">(</span><span class="n">cat_url</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The fields (and CMIP names) required to calculate each feedback are:</p>
+<ul class="simple">
+<li><p>Albedo: upwelling and downwelling SW radiation at the surface (<code class="docutils literal notranslate"><span class="pre">rsus</span></code> and <code class="docutils literal notranslate"><span class="pre">rsds</span></code>)</p></li>
+<li><p>Temperature (Planck and lapse rate): air temperature (<code class="docutils literal notranslate"><span class="pre">ta</span></code>) and surface temperature (<code class="docutils literal notranslate"><span class="pre">ts</span></code>)</p></li>
+<li><p>Water vapor: specific humidity (<code class="docutils literal notranslate"><span class="pre">hus</span></code>) and air temperature</p></li>
+<li><p>SW CRE: Net SW radiation at TOA (down <code class="docutils literal notranslate"><span class="pre">rsdt</span></code> minus up <code class="docutils literal notranslate"><span class="pre">rsut</span></code>) and clear-sky versions (down, which is the same, minus up <code class="docutils literal notranslate"><span class="pre">rsutcs</span></code>)</p></li>
+<li><p>LW CRE: Net LW radiation at TOA (<code class="docutils literal notranslate"><span class="pre">rlut</span></code>) and the clear-sky version (<code class="docutils literal notranslate"><span class="pre">rlutcs</span></code>)</p></li>
+</ul>
+<p>The cloud feedbacks require the results from the other feedbacks to correct for noncloud contributions to the CREs.</p>
+<p>We will also need near-surface air temperature (<code class="docutils literal notranslate"><span class="pre">tas</span></code>) for calculating the change in global mean surface temperature (GMST).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">activity_id</span><span class="o">=</span><span class="s1">&#39;CMIP&#39;</span><span class="p">,</span> <span class="n">experiment_id</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;piControl&#39;</span><span class="p">,</span> <span class="s1">&#39;abrupt-4xCO2&#39;</span><span class="p">],</span> <span class="n">table_id</span><span class="o">=</span><span class="s1">&#39;Amon&#39;</span><span class="p">,</span> <span class="n">source_id</span><span class="o">=</span><span class="s1">&#39;CESM2&#39;</span><span class="p">,</span> 
+                 <span class="n">variable_id</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rsus&#39;</span><span class="p">,</span> <span class="s1">&#39;rsds&#39;</span><span class="p">,</span> <span class="s1">&#39;ta&#39;</span><span class="p">,</span> <span class="s1">&#39;ts&#39;</span><span class="p">,</span> <span class="s1">&#39;hus&#39;</span><span class="p">,</span> <span class="s1">&#39;rsdt&#39;</span><span class="p">,</span> <span class="s1">&#39;rsut&#39;</span><span class="p">,</span> <span class="s1">&#39;rsutcs&#39;</span><span class="p">,</span> <span class="s1">&#39;rlut&#39;</span><span class="p">,</span> <span class="s1">&#39;rlutcs&#39;</span><span class="p">,</span> <span class="s1">&#39;tas&#39;</span><span class="p">])</span>
+<span class="n">cat</span><span class="o">.</span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>activity_id</th>
+      <th>institution_id</th>
+      <th>source_id</th>
+      <th>experiment_id</th>
+      <th>member_id</th>
+      <th>table_id</th>
+      <th>variable_id</th>
+      <th>grid_label</th>
+      <th>zstore</th>
+      <th>dcpp_init_year</th>
+      <th>version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>piControl</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>rsutcs</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/piControl/r1i...</td>
+      <td>NaN</td>
+      <td>20190320</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>piControl</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>rsut</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/piControl/r1i...</td>
+      <td>NaN</td>
+      <td>20190320</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>piControl</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>rsus</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/piControl/r1i...</td>
+      <td>NaN</td>
+      <td>20190320</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>piControl</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>ta</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/piControl/r1i...</td>
+      <td>NaN</td>
+      <td>20190320</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>piControl</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>hus</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/piControl/r1i...</td>
+      <td>NaN</td>
+      <td>20190320</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>piControl</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>tas</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/piControl/r1i...</td>
+      <td>NaN</td>
+      <td>20190320</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>piControl</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>rsdt</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/piControl/r1i...</td>
+      <td>NaN</td>
+      <td>20190320</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>piControl</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>ts</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/piControl/r1i...</td>
+      <td>NaN</td>
+      <td>20190320</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>piControl</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>rsds</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/piControl/r1i...</td>
+      <td>NaN</td>
+      <td>20190320</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>piControl</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>rlutcs</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/piControl/r1i...</td>
+      <td>NaN</td>
+      <td>20190320</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>piControl</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>rlut</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/piControl/r1i...</td>
+      <td>NaN</td>
+      <td>20190320</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>abrupt-4xCO2</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>rsds</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/abrupt-4xCO2/...</td>
+      <td>NaN</td>
+      <td>20190927</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>abrupt-4xCO2</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>rlutcs</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/abrupt-4xCO2/...</td>
+      <td>NaN</td>
+      <td>20190927</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>abrupt-4xCO2</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>rlut</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/abrupt-4xCO2/...</td>
+      <td>NaN</td>
+      <td>20190927</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>abrupt-4xCO2</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>ts</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/abrupt-4xCO2/...</td>
+      <td>NaN</td>
+      <td>20190927</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>abrupt-4xCO2</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>rsdt</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/abrupt-4xCO2/...</td>
+      <td>NaN</td>
+      <td>20190927</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>abrupt-4xCO2</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>rsus</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/abrupt-4xCO2/...</td>
+      <td>NaN</td>
+      <td>20190927</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>abrupt-4xCO2</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>rsut</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/abrupt-4xCO2/...</td>
+      <td>NaN</td>
+      <td>20190927</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>abrupt-4xCO2</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>rsutcs</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/abrupt-4xCO2/...</td>
+      <td>NaN</td>
+      <td>20190927</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>abrupt-4xCO2</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>ta</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/abrupt-4xCO2/...</td>
+      <td>NaN</td>
+      <td>20190927</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>abrupt-4xCO2</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>tas</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/abrupt-4xCO2/...</td>
+      <td>NaN</td>
+      <td>20190927</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>CMIP</td>
+      <td>NCAR</td>
+      <td>CESM2</td>
+      <td>abrupt-4xCO2</td>
+      <td>r1i1p1f1</td>
+      <td>Amon</td>
+      <td>hus</td>
+      <td>gn</td>
+      <td>gs://cmip6/CMIP6/CMIP/NCAR/CESM2/abrupt-4xCO2/...</td>
+      <td>NaN</td>
+      <td>20190927</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dset_dict</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">to_dataset_dict</span><span class="p">(</span><span class="n">zarr_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;consolidated&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--&gt; The keys in the returned dictionary of datasets are constructed as follows:
+	&#39;activity_id.institution_id.source_id.experiment_id.table_id.grid_label&#39;
+</pre></div>
+</div>
+<div class="output text_html">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    progress:not([value]), progress:not([value])::-webkit-progress-bar {
+        background: repeating-linear-gradient(45deg, #7e7e7e, #7e7e7e 10px, #5c5c5c 10px, #5c5c5c 20px);
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div><div class="output text_html">
+    <div>
+      <progress value='1' class='' max='2' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      50.00% [1/2 00:29&lt;00:29]
+    </div>
+    </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ctrl</span> <span class="o">=</span> <span class="n">dset_dict</span><span class="p">[</span><span class="s1">&#39;CMIP.NCAR.CESM2.piControl.Amon.gn&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ctrl</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pert</span> <span class="o">=</span> <span class="n">dset_dict</span><span class="p">[</span><span class="s1">&#39;CMIP.NCAR.CESM2.abrupt-4xCO2.Amon.gn&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pert</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="radiative-forcing-data">
+<h3>Radiative forcing data<a class="headerlink" href="#radiative-forcing-data" title="Link to this heading">#</a></h3>
+<p>To calculate the cloud feedback, we will need the effective radiative forcing (ERF) resulting from 4xCO2, which we can find under another project, RFMIP:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rf_cat</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">activity_id</span><span class="o">=</span><span class="s1">&#39;RFMIP&#39;</span><span class="p">,</span> <span class="n">experiment_id</span><span class="o">=</span><span class="s1">&#39;piClim-4xCO2&#39;</span><span class="p">,</span> <span class="n">source_id</span><span class="o">=</span><span class="s1">&#39;CESM2&#39;</span><span class="p">)</span>
+<span class="n">rf_cat</span><span class="o">.</span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rf_dset_dict</span> <span class="o">=</span> <span class="n">rf_cat</span><span class="o">.</span><span class="n">to_dataset_dict</span><span class="p">(</span><span class="n">zarr_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;consolidated&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">forcing</span> <span class="o">=</span> <span class="n">rf_dset_dict</span><span class="p">[</span><span class="s1">&#39;RFMIP.NCAR.CESM2.piClim-4xCO2.Amon.gn&#39;</span><span class="p">]</span>
+<span class="n">forcing</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="radiative-kernels">
+<h3>Radiative kernels<a class="headerlink" href="#radiative-kernels" title="Link to this heading">#</a></h3>
+<p>We will load in radiative kernels from Project Pythia’s storage on JetStream2. We will be using the ERA5 kernels <a class="reference external" href="https://essd.copernicus.org/articles/15/3001/2023/">(Huang &amp; Huang 2023)</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;https://js2.jetstream-cloud.org:8001/&#39;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;pythia/ClimKern&#39;</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="n">fsspec</span><span class="o">.</span><span class="n">filesystem</span><span class="p">(</span><span class="s2">&quot;s3&quot;</span><span class="p">,</span> <span class="n">anon</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">client_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">endpoint_url</span><span class="o">=</span><span class="n">URL</span><span class="p">))</span>
+<span class="n">patternKern</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;s3://</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">/kernels/ERA5/*.nc&#39;</span>
+<span class="n">patternTutorial</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;s3://</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">/tutorial_data/*.nc&#39;</span>
+<span class="n">filesKern</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">patternKern</span><span class="p">))</span>
+<span class="n">filesTutorial</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">patternTutorial</span><span class="p">))</span>
+<span class="n">filesetKern</span> <span class="o">=</span> <span class="p">[</span><span class="n">fs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">filesKern</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]]</span>
+<span class="n">filesetTutorial</span> <span class="o">=</span> <span class="p">[</span><span class="n">fs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">filesKern</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will use the more common TOA kernels.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filesKern</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we will see in a moment, the naming convention for months as calculated from Xarray’s <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> method (“month”, 1-12) is different from what is used in the kernel dataset (“time”, 0-11), so we need to align them:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_kern</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">filesetKern</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">data_kern</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_kern</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">data_kern</span> <span class="o">=</span> <span class="n">data_kern</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="s1">&#39;month&#39;</span><span class="p">})</span>
+<span class="n">data_kern</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s take a look at some of these kernels. First, the albedo kernel, annually averaged:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_kern</span><span class="o">.</span><span class="n">sw_a</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">levels</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And the LW water vapor kernel, annually and zonally averaged:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_kern</span><span class="o">.</span><span class="n">lw_q</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">levels</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">yincrease</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="preparing-data-for-analysis">
+<h2>Preparing data for analysis<a class="headerlink" href="#preparing-data-for-analysis" title="Link to this heading">#</a></h2>
+<p>Define a function for taking global averages:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">global_average</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">lat</span><span class="p">))</span>
+    <span class="n">data_weighted</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">weighted</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data_weighted</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To get a general idea of how the climate changes in these runs, we can plot the 12-month rolling GMST for the two runs:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gmst_ctrl</span> <span class="o">=</span> <span class="n">global_average</span><span class="p">(</span><span class="n">ctrl</span><span class="o">.</span><span class="n">tas</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gmst_ctrl</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="s1">&#39;1150&#39;</span><span class="p">,</span> <span class="s1">&#39;1200&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gmst_pert</span> <span class="o">=</span> <span class="n">global_average</span><span class="p">(</span><span class="n">pert</span><span class="o">.</span><span class="n">tas</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gmst_pert</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="s1">&#39;0949&#39;</span><span class="p">,</span> <span class="s1">&#39;0999&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="calculating-the-two-climate-states">
+<h3>Calculating the two climate states<a class="headerlink" href="#calculating-the-two-climate-states" title="Link to this heading">#</a></h3>
+<p>Ideally, we would want to compare two equilibrated climates, but since that is usually not possible with standard-length CMIP experiments, we will simply use the monthly climatology over the last 50 years available for each run, which is close enough to equilibrium. The pressure coordinates are in Pa, so let’s convert them to hPa to match the kernels:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ctrl_state</span> <span class="o">=</span> <span class="n">ctrl</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="s1">&#39;1150&#39;</span><span class="p">,</span> <span class="s1">&#39;1200&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;time.month&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+<span class="n">pert_state</span> <span class="o">=</span> <span class="n">pert</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="s1">&#39;0949&#39;</span><span class="p">,</span> <span class="s1">&#39;0999&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;time.month&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+
+<span class="n">ctrl_state</span><span class="p">[</span><span class="s1">&#39;plev&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ctrl_state</span><span class="p">[</span><span class="s1">&#39;plev&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">100</span>
+<span class="n">pert_state</span><span class="p">[</span><span class="s1">&#39;plev&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pert_state</span><span class="p">[</span><span class="s1">&#39;plev&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pert_state</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will need the change in GMST in order to calculate the feedbacks:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dgmst</span> <span class="o">=</span> <span class="n">global_average</span><span class="p">(</span><span class="n">pert_state</span><span class="o">.</span><span class="n">tas</span> <span class="o">-</span> <span class="n">ctrl_state</span><span class="o">.</span><span class="n">tas</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">)</span>
+<span class="n">dgmst</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="regridding">
+<h3>Regridding<a class="headerlink" href="#regridding" title="Link to this heading">#</a></h3>
+<p>The model output and kernels are not on the same grid, so we will regrid the kernel dataset to the model’s grid using the regridding package <code class="docutils literal notranslate"><span class="pre">xesmf</span></code>. For reusability, let’s define a function to regrid data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">regrid</span><span class="p">(</span><span class="n">ds_in</span><span class="p">,</span> <span class="n">regrid_to</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;bilinear&#39;</span><span class="p">):</span>
+    <span class="n">regridder</span> <span class="o">=</span> <span class="n">xe</span><span class="o">.</span><span class="n">Regridder</span><span class="p">(</span><span class="n">ds_in</span><span class="p">,</span> <span class="n">regrid_to</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">periodic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ignore_degenerate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ds_out</span> <span class="o">=</span> <span class="n">regridder</span><span class="p">(</span><span class="n">ds_in</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ds_out</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">regr_kernels</span> <span class="o">=</span> <span class="n">regrid</span><span class="p">(</span><span class="n">data_kern</span><span class="p">,</span> <span class="n">pert_state</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">regr_kernels</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Check that the kernels look as expected:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">regr_kernels</span><span class="o">.</span><span class="n">sw_a</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">levels</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">regr_kernels</span><span class="o">.</span><span class="n">lw_q</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">levels</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">yincrease</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="calculating-feedbacks">
+<h2>Calculating feedbacks<a class="headerlink" href="#calculating-feedbacks" title="Link to this heading">#</a></h2>
+<p>For all noncloud feedbacks, we will calculate both the all-sky and clear-sky (indicated by <code class="docutils literal notranslate"><span class="pre">clr</span></code> in the kernel dataset here) change in TOA radiation <span class="math notranslate nohighlight">\(\Delta R\)</span>. To do this, we just use the clear-sky version of the kernel in place of the all-sky kernel. The differences <span class="math notranslate nohighlight">\(\Delta R^\mathrm{clear}_X-\Delta R^\mathrm{all}_X\)</span> for each feedback <span class="math notranslate nohighlight">\(X\)</span> will be used to adjust the CREs into proper cloud feedbacks.</p>
+<p>For the feedbacks involving fields that are a function of pressure (i.e., temperature and water vapor), we need to mask out the stratosphere. In this notebook, we will approximate this using a function that masks above 100 hPa at the equator and linearly decreases to 300 hPa at the poles:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">tropo_mask</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">ds</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">plev</span> <span class="o">&gt;</span> <span class="p">((</span><span class="mi">200</span><span class="o">/</span><span class="mi">90</span><span class="p">)</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span> <span class="o">+</span> <span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Compare:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ctrl_state</span><span class="o">.</span><span class="n">ta</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yincrease</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tropo_mask</span><span class="p">(</span><span class="n">ctrl_state</span><span class="o">.</span><span class="n">ta</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">]))</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yincrease</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="surface-albedo">
+<h3>Surface albedo<a class="headerlink" href="#surface-albedo" title="Link to this heading">#</a></h3>
+<p>The first step is to calculate the change in albedo between the control and perturbed climates. The surface albedo <span class="math notranslate nohighlight">\(\alpha\)</span> is defined as the fraction of downwelling solar radiation at the surface that is reflected back up. That is,</p>
+<div class="math notranslate nohighlight">
+\[\alpha=\frac{S^\uparrow_\mathrm{s}}{S^\downarrow_\mathrm{s}}=\frac{\mathtt{rsus}}{\mathtt{rsds}}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alb_ctrl</span> <span class="o">=</span> <span class="p">(</span><span class="n">ctrl_state</span><span class="o">.</span><span class="n">rsus</span><span class="o">/</span><span class="n">ctrl_state</span><span class="o">.</span><span class="n">rsds</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ctrl_state</span><span class="o">.</span><span class="n">rsds</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">alb_pert</span> <span class="o">=</span> <span class="p">(</span><span class="n">pert_state</span><span class="o">.</span><span class="n">rsus</span><span class="o">/</span><span class="n">pert_state</span><span class="o">.</span><span class="n">rsds</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ctrl_state</span><span class="o">.</span><span class="n">rsds</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that we avoided dividing by zero by masking regions where <code class="docutils literal notranslate"><span class="pre">rsds</span></code> = 0 and filling in the resulting <code class="docutils literal notranslate"><span class="pre">nan</span></code>s with 0. Now, take the difference:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dalb</span> <span class="o">=</span> <span class="n">alb_pert</span> <span class="o">-</span> <span class="n">alb_ctrl</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dalb</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>By multiplying the change in albedo with the albedo kernel, we get the change in TOA radiation (in units W m<span class="math notranslate nohighlight">\(^{-2}\)</span>) resulting from that change in albedo:</p>
+<div class="math notranslate nohighlight">
+\[\Delta R_\alpha=K_\alpha\cdot\Delta\alpha\]</div>
+<p>We also need to multiply by 100 to get albedo as a percentage.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dSW_alb</span> <span class="o">=</span> <span class="n">regr_kernels</span><span class="o">.</span><span class="n">sw_a</span> <span class="o">*</span> <span class="n">dalb</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="n">dSW_alb_clr</span> <span class="o">=</span> <span class="n">regr_kernels</span><span class="o">.</span><span class="n">swclr_a</span> <span class="o">*</span> <span class="n">dalb</span> <span class="o">*</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dSW_alb</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The feedback in units W m<span class="math notranslate nohighlight">\(^{-2}\)</span> K<span class="math notranslate nohighlight">\(^{-1}\)</span> is then calculated by normalizing this change in TOA radiation by the change in GMST:</p>
+<div class="math notranslate nohighlight">
+\[\lambda_\alpha=\frac{\Delta R_\alpha}{\Delta T_\mathrm{s}}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alb_feedback</span> <span class="o">=</span> <span class="n">dSW_alb</span><span class="o">/</span><span class="n">dgmst</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alb_feedback</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Taking the global and annual average, we get a final value of about <span class="math notranslate nohighlight">\(0.35\)</span> W m<span class="math notranslate nohighlight">\(^{-2}\)</span> K<span class="math notranslate nohighlight">\(^{-1}\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">global_average</span><span class="p">(</span><span class="n">alb_feedback</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="temperature">
+<h3>Temperature<a class="headerlink" href="#temperature" title="Link to this heading">#</a></h3>
+<p>The temperature feedback is decomposed into Planck and lapse rate feedbacks, but first, we can calculate the change in TOA LW radiation resulting from changes in surface (<code class="docutils literal notranslate"><span class="pre">ts</span></code>) and air (<code class="docutils literal notranslate"><span class="pre">ta</span></code>) temperature. The first step is calculating the changes in surface and air temperature:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dts</span> <span class="o">=</span> <span class="n">pert_state</span><span class="o">.</span><span class="n">ts</span> <span class="o">-</span> <span class="n">ctrl_state</span><span class="o">.</span><span class="n">ts</span>
+<span class="n">dta</span> <span class="o">=</span> <span class="n">pert_state</span><span class="o">.</span><span class="n">ta</span> <span class="o">-</span> <span class="n">ctrl_state</span><span class="o">.</span><span class="n">ta</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then the change in TOA radiation using the kernels:</p>
+<div class="math notranslate nohighlight">
+\[\Delta R_{T_\mathrm{s}}=K_{T_\mathrm{s}}\cdot\Delta T_\mathrm{s}\]</div>
+<p>And for feedbacks that involve functions of pressure, we sum over the pressure levels:</p>
+<div class="math notranslate nohighlight">
+\[\Delta R_T=\sum_p K_T(p)\cdot\Delta T(p)\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dLW_ts</span> <span class="o">=</span> <span class="n">regr_kernels</span><span class="o">.</span><span class="n">lw_ts</span> <span class="o">*</span> <span class="n">dts</span>
+<span class="n">dLW_ts_clr</span> <span class="o">=</span> <span class="n">regr_kernels</span><span class="o">.</span><span class="n">lwclr_ts</span> <span class="o">*</span> <span class="n">dts</span>
+
+<span class="n">dLW_ta</span> <span class="o">=</span> <span class="p">(</span><span class="n">regr_kernels</span><span class="o">.</span><span class="n">lw_t</span> <span class="o">*</span> <span class="n">tropo_mask</span><span class="p">(</span><span class="n">dta</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;plev&#39;</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">dLW_ta_clr</span> <span class="o">=</span> <span class="p">(</span><span class="n">regr_kernels</span><span class="o">.</span><span class="n">lwclr_t</span> <span class="o">*</span> <span class="n">tropo_mask</span><span class="p">(</span><span class="n">dta</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;plev&#39;</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dLW_ts</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dLW_ta</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The full temperature feedback is the sum of these, normalized by the change in GMST:</p>
+<div class="math notranslate nohighlight">
+\[\lambda_T=\frac{\Delta R_{T_\mathrm{s}}+\Delta R_T}{\Delta T_\mathrm{s}}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t_feedback</span> <span class="o">=</span> <span class="p">(</span><span class="n">dLW_ta</span> <span class="o">+</span> <span class="n">dLW_ts</span><span class="p">)</span><span class="o">/</span><span class="n">dgmst</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t_feedback</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For the annual and global average, we get about <span class="math notranslate nohighlight">\(-4.3\)</span> W m<span class="math notranslate nohighlight">\(^{-2}\)</span> K<span class="math notranslate nohighlight">\(^{-1}\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">global_average</span><span class="p">(</span><span class="n">t_feedback</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="planck">
+<h4>Planck<a class="headerlink" href="#planck" title="Link to this heading">#</a></h4>
+<p>There are two components to the Planck feedback:</p>
+<ol class="arabic simple">
+<li><p>The change in TOA radiation due to the surface warming (calculated in the previous section)</p></li>
+<li><p>The change in TOA radiation due to a vertically-uniform warming</p></li>
+</ol>
+<p>We assume a vertically-uniform warming based on the surface temperature. To do this, project the surface warming into the vertical. One way to do this with Xarray is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dts_3d</span> <span class="o">=</span> <span class="n">dts</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;plev&#39;</span><span class="p">:</span> <span class="n">dta</span><span class="o">.</span><span class="n">plev</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Check the vertical profile:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dts_3d</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yincrease</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dLW_dts_3d</span> <span class="o">=</span> <span class="p">(</span><span class="n">regr_kernels</span><span class="o">.</span><span class="n">lw_t</span> <span class="o">*</span> <span class="n">tropo_mask</span><span class="p">(</span><span class="n">dts_3d</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;plev&#39;</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The sum of the two components divided by the change in GMST is the Planck feedback:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">planck_feedback</span> <span class="o">=</span> <span class="p">(</span><span class="n">dLW_ts</span> <span class="o">+</span> <span class="n">dLW_dts_3d</span><span class="p">)</span><span class="o">/</span><span class="n">dgmst</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">planck_feedback</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Annual and global average: <span class="math notranslate nohighlight">\(-3.6\)</span> W m<span class="math notranslate nohighlight">\(^{-2}\)</span> K<span class="math notranslate nohighlight">\(^{-1}\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">global_average</span><span class="p">(</span><span class="n">planck_feedback</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lapse-rate">
+<h4>Lapse rate<a class="headerlink" href="#lapse-rate" title="Link to this heading">#</a></h4>
+</section>
+</section>
+<section id="water-vapor">
+<h3>Water vapor<a class="headerlink" href="#water-vapor" title="Link to this heading">#</a></h3>
+<section id="shortwave-water-vapor">
+<h4>Shortwave water vapor<a class="headerlink" href="#shortwave-water-vapor" title="Link to this heading">#</a></h4>
+</section>
+<section id="longwave-water-vapor">
+<h4>Longwave water vapor<a class="headerlink" href="#longwave-water-vapor" title="Link to this heading">#</a></h4>
+</section>
+</section>
+<section id="cloud">
+<h3>Cloud<a class="headerlink" href="#cloud" title="Link to this heading">#</a></h3>
+<section id="cloud-radiative-effect-cre">
+<h4>Cloud radiative effect (CRE)<a class="headerlink" href="#cloud-radiative-effect-cre" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ctrl_SWCRE</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">ctrl_state</span><span class="o">.</span><span class="n">rsut</span> <span class="o">+</span> <span class="n">ctrl_state</span><span class="o">.</span><span class="n">rsutcs</span><span class="p">)</span>
+<span class="n">pert_SWCRE</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">pert_state</span><span class="o">.</span><span class="n">rsut</span> <span class="o">+</span> <span class="n">pert_state</span><span class="o">.</span><span class="n">rsutcs</span><span class="p">)</span>
+<span class="n">dSWCRE</span> <span class="o">=</span> <span class="n">pert_SWCRE</span> <span class="o">-</span> <span class="n">ctrl_SWCRE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dSWCRE</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="cloud-feedback-adjustments">
+<h4>Cloud feedback adjustments<a class="headerlink" href="#cloud-feedback-adjustments" title="Link to this heading">#</a></h4>
+</section>
+</section>
+<section id="net">
+<h3>Net<a class="headerlink" href="#net" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<hr class="docutils" />
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<section id="what-s-next">
+<h3>What’s next?<a class="headerlink" href="#what-s-next" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="resources-and-references">
+<h2>Resources and references<a class="headerlink" href="#resources-and-references" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks/feedback-analysis"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../foundations/theory-rad-feedback.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Mathematical Theory of Radiative Feedbacks</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="aprp.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">APRP</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-in-required-data">Loading in required data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#climate-model-output">Climate model output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#radiative-forcing-data">Radiative forcing data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#radiative-kernels">Radiative kernels</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-data-for-analysis">Preparing data for analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-two-climate-states">Calculating the two climate states</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regridding">Regridding</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-feedbacks">Calculating feedbacks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#surface-albedo">Surface albedo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature">Temperature</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#planck">Planck</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lapse-rate">Lapse rate</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#water-vapor">Water vapor</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#shortwave-water-vapor">Shortwave water vapor</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#longwave-water-vapor">Longwave water vapor</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud">Cloud</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-radiative-effect-cre">Cloud radiative effect (CRE)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cloud-feedback-adjustments">Cloud feedback adjustments</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#net">Net</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-next">What’s next?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-and-references">Resources and references</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
