@@ -862,9 +862,65 @@ document.write(`
 </div><div class="output text_html">
     <div>
       <progress value='1' class='' max='2' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      50.00% [1/2 00:29&lt;00:29]
+      50.00% [1/2 00:28&lt;00:28]
     </div>
-    </div></div>
+    </div><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">dset_dict</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">to_dataset_dict</span><span class="p">(</span><span class="n">zarr_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;consolidated&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+
+<span class="nn">File ~/micromamba/envs/feedback-cookbook-dev/lib/python3.11/site-packages/pydantic/_internal/_validate_call.py:39,</span> in <span class="ni">update_wrapper_attributes.&lt;locals&gt;.wrapper_function</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">37</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">wrapped</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">38</span> <span class="k">def</span><span class="w"> </span><span class="nf">wrapper_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">39</span>     <span class="k">return</span> <span class="n">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/micromamba/envs/feedback-cookbook-dev/lib/python3.11/site-packages/pydantic/_internal/_validate_call.py:136,</span> in <span class="ni">ValidateCallWrapper.__call__</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pydantic_complete__</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">134</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_create_validators</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">136</span> <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pydantic_validator__</span><span class="o">.</span><span class="n">validate_python</span><span class="p">(</span><span class="n">pydantic_core</span><span class="o">.</span><span class="n">ArgsKwargs</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">137</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__return_pydantic_validator__</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__return_pydantic_validator__</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+
+<span class="nn">File ~/micromamba/envs/feedback-cookbook-dev/lib/python3.11/site-packages/intake_esm/core.py:683,</span> in <span class="ni">esm_datastore.to_dataset_dict</span><span class="nt">(self, xarray_open_kwargs, xarray_combine_by_coords_kwargs, preprocess, storage_options, progressbar, aggregate, skip_on_error, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">681</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">682</span>     <span class="n">gen</span> <span class="o">=</span> <span class="n">concurrent</span><span class="o">.</span><span class="n">futures</span><span class="o">.</span><span class="n">as_completed</span><span class="p">(</span><span class="n">future_tasks</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">683</span> <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">684</span>     <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">685</span>         <span class="n">key</span><span class="p">,</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+
+<span class="nn">File ~/micromamba/envs/feedback-cookbook-dev/lib/python3.11/site-packages/fastprogress/fastprogress.py:41,</span> in <span class="ni">ProgressBar.__iter__</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">39</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">total</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">40</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">41</span>     <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">o</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gen</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">42</span>         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">total</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total</span><span class="p">:</span> <span class="k">break</span>
+<span class="g g-Whitespace">     </span><span class="mi">43</span>         <span class="k">yield</span> <span class="n">o</span>
+
+<span class="nn">File ~/micromamba/envs/feedback-cookbook-dev/lib/python3.11/concurrent/futures/_base.py:243,</span> in <span class="ni">as_completed</span><span class="nt">(fs, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">238</span>     <span class="k">if</span> <span class="n">wait_timeout</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">239</span>         <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">240</span>                 <span class="s1">&#39;</span><span class="si">%d</span><span class="s1"> (of </span><span class="si">%d</span><span class="s1">) futures unfinished&#39;</span> <span class="o">%</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">241</span>                 <span class="nb">len</span><span class="p">(</span><span class="n">pending</span><span class="p">),</span> <span class="n">total_futures</span><span class="p">))</span>
+<span class="ne">--&gt; </span><span class="mi">243</span> <span class="n">waiter</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">wait_timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">245</span> <span class="k">with</span> <span class="n">waiter</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">246</span>     <span class="n">finished</span> <span class="o">=</span> <span class="n">waiter</span><span class="o">.</span><span class="n">finished_futures</span>
+
+<span class="nn">File ~/micromamba/envs/feedback-cookbook-dev/lib/python3.11/threading.py:629,</span> in <span class="ni">Event.wait</span><span class="nt">(self, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">627</span> <span class="n">signaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_flag</span>
+<span class="g g-Whitespace">    </span><span class="mi">628</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">signaled</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">629</span>     <span class="n">signaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cond</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">630</span> <span class="k">return</span> <span class="n">signaled</span>
+
+<span class="nn">File ~/micromamba/envs/feedback-cookbook-dev/lib/python3.11/threading.py:327,</span> in <span class="ni">Condition.wait</span><span class="nt">(self, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">325</span> <span class="k">try</span><span class="p">:</span>    <span class="c1"># restore state no matter what (e.g., KeyboardInterrupt)</span>
+<span class="g g-Whitespace">    </span><span class="mi">326</span>     <span class="k">if</span> <span class="n">timeout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">327</span>         <span class="n">waiter</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">328</span>         <span class="n">gotit</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="g g-Whitespace">    </span><span class="mi">329</span>     <span class="k">else</span><span class="p">:</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
